@@ -1,0 +1,140 @@
+// Kind of recreating this thing I made:
+// https://codepen.io/Alca/pen/VByeJd
+// Original design by Mauricio Vio:
+// https://dribbble.com/shots/3888265-Motion-Study
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,400,700');
+
+body {
+	font-family: 'Roboto', sans-serif;
+	background: hsl(0, 0%, 6%);
+	color: hsl(0, 0%, 100%);
+	margin: 0;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.panels {
+	display: flex;
+	flex-wrap: nowrap;
+	padding: 1.5em;
+	position: absolute;
+	
+	.panel {
+		flex-shrink: 0;
+		width: 20em;
+		height: 33.75em;
+		outline: 0.25em solid hsla(216, 77%, 45, 0);
+		transition: 500ms;
+		position: relative;
+		
+		&:not(:last-child) {
+			margin-right: 1.5em;
+		}
+		.background:after,
+		.text > * {
+			transition: transform 200ms, opacity 200ms;
+		}
+		.background {
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+			transition: 100ms;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			
+			&:before,
+			&:after {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+			&:before {
+				opacity: 0;
+			}
+			&:after {
+				opacity: 0.4;
+				background: linear-gradient(
+					to bottom,
+					hsla(0, 0%, 0%, 0) 20%,
+					hsla(216, 77%, 40%, 0.6) 70%,
+					hsla(216, 85%, 10%, 1) 100%
+				);
+			}
+		}
+		.text {
+			cursor: default;
+			position: absolute;
+			left: 1em;
+			right: 1em;
+			bottom: -2.5em;
+			
+			.location {
+				font-weight: 100;
+				font-size: 1em;
+				margin-bottom: 1em;
+			}
+			.title {
+				font-weight: 700;
+				font-size: 2em;
+				margin-bottom: 0.5em;
+			}
+			.author {
+				font-weight: 400;
+				font-size: 1.25em;
+				margin-bottom: 1em;
+			}
+			.link {
+				display: inline-block;
+				padding: 0.375em 0.5em;
+				background: hsl(216, 77%, 45%);
+				text-align: center;
+				opacity: 0;
+			}
+		}	
+		&.hover,
+		&:hover {
+			outline: 0.875em solid hsl(216, 77%, 45);
+			transition: 300ms;
+			
+			.background {
+				transition: 125ms;
+				top: -0.5em;
+				left: -0.5em;
+				right: -0.5em;
+				bottom: -0.5em;
+			}
+			.background:after {
+				opacity: 1;
+			}
+			.text {
+				& > * {
+					transform: translate3d(0, -3.5rem, 0);
+				}
+				.location {
+					transition-delay: 0ms;
+				}
+				.title {
+					transition-delay: 60ms;
+				}
+				.author {
+					transition-delay: 110ms;
+				}
+				.link {
+					opacity: 1;
+					transition-delay: 150ms;
+				}
+			}
+		}
+	}
+}
